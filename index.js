@@ -1,5 +1,6 @@
 var fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    extend = require('node.extend');
 
 var expressRoutes = module.exports = exports = function(app) {
   // Setting helpers as view application locals
@@ -91,7 +92,7 @@ expressRoutes.config = expressRoutes.config || {
 expressRoutes.configure = function(config) {
   var oldDirectory = expressRoutes.config.directory;
   
-  expressRoutes.config = expressRoutes.config.extend(config);
+  extend(true,expressRoutes.config, config);
   if(!Array.isArray(expressRoutes.config.directory))
     expressRoutes.config.directory = [expressRoutes.config.directory];
 
@@ -110,7 +111,7 @@ expressRoutes.configure = function(config) {
  */
 expressRoutes.getPattern = function(routeName, absolute) {
   if(!(routeName in expressRoutes._routes))
-    if(app.settings.env == 'development')
+    if(expressRoutes.app.settings.env == 'development')
       throw new Error('Tried to get pattern for "' + routeName + '" but it hasn\'t been registered');
     else
       return null;
@@ -131,7 +132,17 @@ expressRoutes.generateUrl = function(routeName, routeParameters, absolute) {
     routeParameters = null;
   }
 
-  var url = expressRoutes.getPattern(routeName, absolute);
+  var parts, query, url = routeName;
+
+  try {
+    url = expressRoutes.getPattern(routeName, absolute);
+  } catch(err) {}
+
+  parts = url.split('?');
+  if(parts.length > 1) {
+    url = parts[0];
+    query = parts[1];
+  }
   
   if(url && routeParameters) {
     var paramNames = Object.getOwnPropertyNames(routeParameters);
@@ -140,22 +151,5 @@ expressRoutes.generateUrl = function(routeName, routeParameters, absolute) {
     });
   }
 
-  return url;
+  return url + (query? '?' + query : '');
 };
-
-if(!('extend' in Object.prototype)) {
-  Object.defineProperty(Object.prototype, "extend", {
-    enumerable: false,
-    value: function(from) {
-        var props = Object.getOwnPropertyNames(from);
-        var dest = this;
-        props.forEach(function(name) {
-            if (name in dest) {
-                var destination = Object.getOwnPropertyDescriptor(from, name);
-                Object.defineProperty(dest, name, destination);
-            }
-        });
-        return this;
-    }
-  });
-}
