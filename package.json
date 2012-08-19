@@ -2,11 +2,11 @@
   "name": "express-routes",
   "version": "0.0.0",
   "description": "Route helper for Express",
-
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "keywords": [
+    "express",
+    "route",
+    "routes"
+  ],
 
   "homepage": "https://github.com/dluces/express-routes",
   "repository": {
@@ -23,15 +23,20 @@
     "email": "me@dluces.com"
   },
 
-  "keywords": [
-    "express",
-    "route",
-    "routes"
-  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
 
-  "licenses" : [
-    { "type" : "MIT", "url" : "https://raw.github.com/dluces/express-routes/master/LICENSE" }
-  ],
+  "engines": {
+    "node": "*",
+    "express": "*"
+  },
+
+  "licenses" : [{
+    "type": "MIT",
+    "url" : "https://raw.github.com/dluces/express-routes/master/LICENSE"
+  }],
 
   "readme": "./README.md",
   "_id": "express-routes@0.0.0",
