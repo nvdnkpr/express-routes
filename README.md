@@ -2,6 +2,9 @@
 
 A route helper for express that allows you to generate URLs for your routes by applying the parameters the pattern may contain.
 
+[![Build Status](https://secure.travis-ci.org/dluces/express-routes.png)](http://travis-ci.org/dluces/express-routes)
+
+
 ##Installation
 
   npm install express-routes
