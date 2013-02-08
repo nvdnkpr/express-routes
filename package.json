@@ -30,7 +30,8 @@
 
   "dependencies": {
     "node.extend": "*",
-    "debug": "*"
+    "debug": "*",
+    "underscore" : "*"
   },
 
    "devDependencies": {
