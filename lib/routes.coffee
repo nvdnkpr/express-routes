@@ -6,6 +6,10 @@ extend = require 'node.extend'
 _ = require 'underscore'
 
 expressRoutes = module.exports = exports = (app) ->
+  # Setting helpers as app locals
+  app.locals[expressRoutes.config.helpers.getPattern] = expressRoutes.getPattern;
+  app.locals[expressRoutes.config.helpers.generateUrl] = expressRoutes.generateUrl;
+  
   # Setting helpers as view response locals
   app.use (req, res, next) ->
     res.locals[expressRoutes.config.helpers.getPattern] = expressRoutes.getPattern;
